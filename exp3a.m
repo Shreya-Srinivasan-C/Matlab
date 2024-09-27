@@ -1,0 +1,26 @@
+clc; 
+clear all; 
+close all;
+bins = 29;
+m = 0;
+v = 1;
+N = 50000;
+noise = m + sqrt(v)* randn(1,N);
+figure;
+subplot(2,1,1);
+hist(noise,bins);
+xlabel('Noise Values');
+ylabel('Counts');
+title("Noise Histogram");
+subplot(2,1,2);
+[y,x] = hist(noise, bins);
+probs = y/sum(y);
+dx = x(2)-x(1);
+fx = probs/dx;
+plot(x, fx);
+fx_th = (1 / sqrt(2*pi*v))*exp(-(x-m).^2/ (2*v));
+hold on
+plot(x,fx_th,'ro');
+xlabel('Noise Values');
+ylabel('PDF');
+title("Gaussian PDF");

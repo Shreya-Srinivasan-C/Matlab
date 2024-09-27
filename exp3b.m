@@ -1,0 +1,25 @@
+clc;
+clear all;
+close all;
+A=1;
+f1=100;
+T=1/f1;
+Fs=30*f1;
+Ts=1/Fs;
+t=0:Ts:3*T;
+xt=A*sin(2*pi*f1*t);
+N=length(t);
+m = 0;
+v = 1;
+noise=m+sqrt(v)*randn(1,N);
+Noisig=xt+noise;
+Xf=(1/N)*fftshift(fft(Noisig));
+f = linspace(-Fs/2, Fs/2, N);
+figure;
+plot(t, Noisig, 'k');
+xlabel('time(sec)');
+ylabel("amplitudes");
+figure;
+plot(f, abs(Xf), 'r')
+xlabel('Frequency');
+ylabel("Magnitude");
